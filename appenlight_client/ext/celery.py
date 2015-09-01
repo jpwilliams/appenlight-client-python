@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import logging
-from celery.signals import task_failure, task_postrun, task_prerun, after_setup_logger
+from celery.signals import task_failure, task_success, task_postrun, task_prerun, after_setup_logger
 from appenlight_client.ext.general import gather_data
 from datetime import datetime
 
@@ -37,6 +37,6 @@ def register_signals(APPENLIGHT_CLIENT):
     task_prerun.connect(prerun_signal, weak=False)
     task_postrun.connect(postrun_signal, weak=False)
     task_failure.connect(failure_signal, weak=False)
-    task_failure.connect(failure_signal, weak=False)
+    task_success.connect(postrun_signal, weak=False)
     after_setup_logger.connect(after_setup_logger_signal, weak=False)
     return True
